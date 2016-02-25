@@ -6,7 +6,7 @@ First, why have standards?
 
 2. Developers need to be able to understand and work comfortably on each other's CSS; it keeps you from being the lone dev working 14-hour shifts on an emergency turnaround project. It also allows you to revisit a site 9 months later and quickly figure out what you, or someone else, was trying to do.
 
-3. You are not the only person who'll ever see and work on your code. Standards make other people's jobs a little less hard.
+3. You are not the only person who'll ever see and work on your code. Standards make the next person's job a little less hard.
 
 With this in mind, when writing your own CSS, please follow these guidelines:
 
@@ -15,21 +15,11 @@ With this in mind, when writing your own CSS, please follow these guidelines:
 ## General Guidelines
 
 
-### Third-Party CSS
-
-When using 3rd-party CSS like [Normalize](https://necolas.github.io/normalize.css/), [Bootstrap](http://getbootstrap.com/), an [icon/font stylesheet](https://fortawesome.github.io/Font-Awesome/), or a JS library's associated styles, use (or create) the **minified** version of their stylesheet(s).
-
-**Do not** write style changes into the 3rd-party files. Instead, simply override them in your own custom CSS file(s). Add a block comment above it if that's helpful. This way, someone else who starts working on your files will see that you've altered the core styling, and if we ever swap-in newer versions of the third-party files, we don't lose your custom changes.
-
-
-### Separate Files
-
-Unless you're working on a small site, separate your CSS into different files: one for global styles, and then one for each webpage. If the styling is complex, you may even create 2 files per page: one for the default (mobile-first) rules, and one for the rules wrapped in media queries (see the "Media Queries" section for recommended breakpoints). This way, you and other devs won't have to hunt for styles across a single, 5000-line stylesheet, and different devs can more easily work on layouts simultaneously. This also allows us to load individual stylesheets conditionally on only the pages they relate to. (You can always consolidate these files into a single stylesheet for the live site.)
-
-
 ### Mobile First: Media Queries, Breakpoints
 
 Write media queries from a **mobile-first** perspective, which means using `min-width` for media queries, **not** `max-width`. This means that any CSS rules that are **not** wrapped in a media query should be targeting mobile devices, and anything targeting a wider/desktop layout should be wrapped in a media query for the specific breakpoint that makes sense.
+
+This also means that in terms of strategy, you should start styling/laying-out your webpages to match the **mobile layout.** Starting with the mobile layout and expanding it for desktop is almost always faster and more successful than starting with the desktop layout and trying to reduce it down to fit the mobile styles.
 
 **Do not write one-off media queries throughout a CSS file.** Each breakpoint/media query should be written as a single wrapper, with all styles for that breakpoint included inside it. This makes it very easy to see what styles are being applied (or modified) at a given breakpoint.
 
@@ -37,7 +27,7 @@ Each media-query block should be put in order from smallest viewport to largest.
 
 This ordering is important for 2 reasons: 1. So that no style accidentally overrides another style, and 2. So that it is easy to find and identify each media-query block.
 
-Bootstrap 4 uses the following media queries, **which we should mirror to ensure consistency** if we (or anyone in the future) use Bootstrap on a project:
+Bootstrap 4 uses the following media queries, **which you should mirror to ensure consistency** if you (or anyone in the future) use Bootstrap on the project:
 
 Naked rules (not wrapped in any media query, for phone viewports):
 
@@ -59,9 +49,11 @@ Naked rules (not wrapped in any media query, for phone viewports):
 
     @media (min-width: 1200px) { ... }
     
-You may also want an extra query above that, since the desktop computers we and most other people use are nearly 2000 px wide:
+You may also want an extra query above that, since the desktop computers that many people use are nearly 2000 px wide:
 
     @media (min-width: 1600px) { ... }
+
+You probably won't need all of these. Only use the specific media queries you need to get the right layouts for the project. But these should be your expected breakpoints.
 
 
 ### Custom Media Queries
@@ -79,9 +71,21 @@ Example:
     } /* end media query 768-840px */
 
 
+### Separate Files
+
+Unless you're working on a small site, separate your CSS into different files: one for global styles, and then one for each webpage. If the styling is complex/lengthy, you may even create 2 files per page: one for the default (mobile-first) rules, and one for the rules wrapped in media queries (see the "Media Queries" section for recommended breakpoints). This way, you and other devs won't have to hunt for styles across a single, 5000-line stylesheet, **and** different devs can more easily work on layouts simultaneously. This also allows you to load individual stylesheets conditionally on only the pages they relate to. (You can always consolidate these files into a single stylesheet for the live site.)
+
+
+### Third-Party CSS
+
+When using 3rd-party CSS like [Normalize](https://necolas.github.io/normalize.css/), [Bootstrap](http://getbootstrap.com/), an [icon/font stylesheet](https://fortawesome.github.io/Font-Awesome/), or a JS library's associated styles, use (or create) the **minified** version of their stylesheet(s).
+
+**Do not** write style changes into the 3rd-party files. Instead, simply override them in your own custom CSS file(s). Add a block comment above it if that's helpful. This way, someone else who starts working on your files will see that you've altered the core styling, and if they ever swap-in a newer version of the third-party files, they don't lose your custom changes.
+
+
 ### Minifying
 
-For production, create a minified (and maybe aggregated) copy of the CSS file(s). Use [http://cssminifier.com](http://cssminifier.com) or similar to do so. Name it `[thisFileName].min.css`, and point your pages to that new minified file. KEEP the full file version(s) for ongoing development. Re-minify and replace the minified version whenever changes are made to the file(s).
+For production, create a minified (and maybe aggregated) copy of the CSS file(s). Use [http://cssminifier.com](http://cssminifier.com) or similar to do so. Name it `[thisFileName].min.css`, and point your pages to that new minified file. KEEP the full file version(s) for ongoing development. When changes are made to the development file(s), re-minify and replace the minified version(s), and push that up to production.
 
 
 
@@ -90,7 +94,7 @@ For production, create a minified (and maybe aggregated) copy of the CSS file(s)
 
 ### Specificity
 
-Specificity is first because it's really important: Do not set rules for selectors that are broad enough that they could spill out to any other use of the same selector. Be especially careful setting styles for naked elements (`body`, `p`, `a`, `h3`, `ul`, `div`, `nav`, etc.) since these styles will very likely need to be worked around when a future site addition requires using those elements in a different way. A good rule of thumb is that broad rules should **only** be set in order to "normalize" or "reset" browser default styles.
+Specificity is first because it's really important: Do not set rules for selectors that are broad enough that they could spill out to any other use of the same selector. Be especially careful setting styles for naked elements (`body`, `p`, `a`, `h3`, `ul`, `div`, `nav`, etc.) since these styles will very likely need to be manually re-set when a future site addition requires using those elements in a different way. A good rule of thumb is that broad rules should **only** be set in order to "normalize" or "reset" browser default styles.
 
 Examples:
 
@@ -110,7 +114,7 @@ Examples:
       background-color: beige; /* limits the rule to a page-specific class instance */
     }
     a {
-      color: inherit; /* overrides the browser's (and Bootstrap's) default blue */
+      color: inherit; /* overrides the browser's (and Bootstrap's) default blue, inherits its parent's color */
     }
     .content > p {
       padding: 0 20px; /* only paragraph text that is a direct child of the content div will be given padding */
@@ -210,9 +214,9 @@ Example:
     
     .my-element {
       display: none; /* hide by default, show w/ jquery */
-      position: relative; /* contain child elements using position:absolute */
-      z-index: 9; /* keep above normal elements, but below sticky footer */
-      margin: -15px -15px 0 0; /* offset padding on parent's top-right corner */
+      position: relative; /* to contain child elements using position:absolute */
+      z-index: 9; /* to keep above normal elements, but below sticky footer */
+      margin: -15px -15px 0 0; /* to offset padding on parent's top-right corner */
     }
 
 
@@ -223,7 +227,7 @@ No need for full line spaces between rules; the closing curly quote already kind
 
 ### Indents
 
-Do not indent, aside from the 2 spaces before the declarations inside a block. Indenting the blocks themselves will most likely just be confusing to others. Logical naming conventions and block-comment grouping should provide enough context.
+Do not indent rules, aside from the 2 spaces before the declarations inside a block. Indenting the blocks themselves will most likely just be confusing to others. Logical naming conventions and block-comment grouping should provide enough context.
 
 Example:
 
@@ -241,7 +245,7 @@ Example:
 
 Use vendor prefixes to make sure your CSS is supported as far back as reasonably possible. In particular, `transition`, `transform`, and `gradient` declarations need vendor prefixes, as do (lesser-used) `calc`, `flex`, `appearance`, `placeholder`, `columns`, `animation`, and `keyframes`. Prefixes for `border-radius` and `box-shadow` are optional.
 
-To check browser support and see what vendor prefixes are needed for a property, make a habit of checking [caniuse.com](http://caniuse.com/).
+To check browser support and see what vendor prefixes are needed for a property, **make a habit** of checking [caniuse.com](http://caniuse.com/).
 
 Examples of vendor prefixing:
 
