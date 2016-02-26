@@ -17,9 +17,9 @@ With this in mind, when writing your own CSS, please follow these guidelines:
 
 ### Mobile First: Media Queries, Breakpoints
 
-Write media queries from a **mobile-first** perspective, which means using `min-width` for media queries, **not** `max-width`. This means that any CSS rules that are **not** wrapped in a media query should be targeting mobile devices, and anything targeting a wider/desktop layout should be wrapped in a media query for the specific breakpoint that makes sense.
+Write media queries from a **<a href="http://ux.stackexchange.com/a/35317" target="_blank">mobile-first</a>** perspective, which means using `min-width` for media queries, **not** `max-width`. This means that any CSS rules that are **not** wrapped in a media query should be targeting mobile devices, and anything targeting a wider/desktop layout should be wrapped in a media query for the specific breakpoint that makes sense.
 
-This also means that in terms of strategy, you should start styling/laying-out your webpages to match the **mobile layout.** Starting with the mobile layout and expanding it for desktop is almost always faster and more successful than starting with the desktop layout and trying to reduce it down to fit the mobile styles.
+This also means that in terms of strategy, you should **start by styling/laying-out your webpages for the mobile layout.** Starting with the mobile layout and expanding it for desktop is almost always faster and more successful than starting with the desktop layout and trying to reduce it down to fit the mobile styles.
 
 **Do not write one-off media queries throughout a CSS file.** Each breakpoint/media query should be written as a single wrapper, with all styles for that breakpoint included inside it. This makes it very easy to see what styles are being applied (or modified) at a given breakpoint.
 
@@ -27,7 +27,7 @@ Each media-query block should be put in order from smallest viewport to largest.
 
 This ordering is important for 2 reasons: 1. So that no style accidentally overrides another style, and 2. So that it is easy to find and identify each media-query block.
 
-Bootstrap 4 uses the following media queries, **which you should mirror to ensure consistency** if you (or anyone in the future) use Bootstrap on the project:
+<a href="http://v4-alpha.getbootstrap.com/layout/grid/#grid-options" target="_blank">Bootstrap 4</a> uses the following media queries, **which you should mirror to ensure consistency** if you (or anyone in the future) use Bootstrap on the project:
 
 Naked rules (not wrapped in any media query, for phone viewports):
 
@@ -64,7 +64,7 @@ Example:
 
     @media (min-width: 768px) and (max-width: 840px) {
       
-      .myElement {
+      .my-element {
         padding-left: 0;
       }
       
@@ -78,14 +78,14 @@ Unless you're working on a small site, separate your CSS into different files: o
 
 ### Third-Party CSS
 
-When using 3rd-party CSS like [Normalize](https://necolas.github.io/normalize.css/), [Bootstrap](http://getbootstrap.com/), an [icon/font stylesheet](https://fortawesome.github.io/Font-Awesome/), or a JS library's associated styles, use (or create) the **minified** version of their stylesheet(s).
+When using 3rd-party CSS like <a href="https://necolas.github.io/normalize.css/" target="_blank">Normalize</a>, <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>, an <a href="https://fortawesome.github.io/Font-Awesome/" target="_blank">icon/font stylesheet</a>, or a JS library's associated styles, use (or [create](#minifying)) the **minified** version of their stylesheet(s).
 
 **Do not** write style changes into the 3rd-party files. Instead, simply override them in your own custom CSS file(s). Add a block comment above it if that's helpful. This way, someone else who starts working on your files will see that you've altered the core styling, and if they ever swap-in a newer version of the third-party files, they don't lose your custom changes.
 
 
 ### Minifying
 
-For production, create a minified (and maybe aggregated) copy of the CSS file(s). Use [http://cssminifier.com](http://cssminifier.com) or similar to do so. Name it `[thisFileName].min.css`, and point your pages to that new minified file. KEEP the full file version(s) for ongoing development. When changes are made to the development file(s), re-minify and replace the minified version(s), and push that up to production.
+For production, create a minified (and maybe aggregated) copy of your CSS file(s). Use <a href="http://cssminifier.com" target="_blank">CSSminifier.com</a> or similar to do so. Name it `[thisFileName].min.css`, and point your pages to that new minified file. KEEP the un-minified version(s) for ongoing development. When changes are made to the development file(s), re-minify, test, and replace the minified version(s), and push them up to production.
 
 
 
@@ -188,10 +188,10 @@ Example:
      *
      **/
     
-    #top-nav {
+    #topNav {
       /* whatever */
     }
-    #nav-icon {
+    .nav-icon {
       /* whatever */
     }
     
@@ -208,7 +208,7 @@ Example:
 
 ### Inline Comments
 
-This is another important one. Add inline comments to indicate what certain declarations are trying to accomplish, if it's not obvious. Especially for properties like `position`, `display`, `z-index`, negative margin, etc.
+This one really needs to be done more: Add inline comments to indicate what certain declarations are trying to accomplish if it's not obvious. Especially for properties like `position`, `display`, `z-index`, negative margin, etc.
 
 Example:
     
@@ -243,9 +243,9 @@ Example:
 
 ### Browser Support, Vendor Prefixes
 
-Use vendor prefixes to make sure your CSS is supported as far back as reasonably possible. In particular, `transition`, `transform`, and `gradient` declarations need vendor prefixes, as do (lesser-used) `calc`, `flex`, `appearance`, `placeholder`, `columns`, `animation`, and `keyframes`. Prefixes for `border-radius` and `box-shadow` are optional.
+Use vendor prefixes to make sure your CSS is supported as far back as reasonably possible. In particular, `transition`, `transform`, and `gradient` declarations **need vendor prefixes,** as do (lesser-used) `calc`, `flex`, `appearance`, `placeholder`, `columns`, `animation`, and `keyframes`. Prefixes for `border-radius` and `box-shadow` are optional.
 
-To check browser support and see what vendor prefixes are needed for a property, **make a habit** of checking [caniuse.com](http://caniuse.com/).
+To check browser support and see what vendor prefixes are needed for a property, **make a habit** of checking <a href="http://caniuse.com/" target="_blank">caniuse.com</a>.
 
 Examples of vendor prefixing:
 
