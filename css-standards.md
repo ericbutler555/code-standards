@@ -146,7 +146,7 @@ Example:
 
 Example:
 
-    .intro {
+    .intro-section {
       width: 100%;
       padding: 20px 0 40px;
       background-color: #ddd;
@@ -249,20 +249,20 @@ To check browser support and see what vendor prefixes are needed for a property,
 
 Examples of vendor prefixing:
 
-    .element {
+    .my-element {
       -webkit-transition: -webkit-transform 0.4s;
          -moz-transition:    -moz-transform 0.4s;
            -o-transition:      -o-transform 0.4s, transform 0.4s;
               transition: -webkit-transform 0.4s, transform 0.4s;
     }
-    .element.enlarged {
+    .my-element.enlarged {
       -webkit-transform: scale(1.05);
          -moz-transform: scale(1.05);
           -ms-transform: scale(1.05);
            -o-transform: scale(1.05);
               transform: scale(1.05);
     }
-    .element2 {
+    .my-element2 {
       background-image: -webkit-linear-gradient(black, white);
       background-image:    -moz-linear-gradient(black, white);
       background-image:      -o-linear-gradient(black, white);
@@ -270,69 +270,28 @@ Examples of vendor prefixing:
     }
 
 
+### Print Styles
+
+If there is enough time, or the client requires it, don't forget to check if your webpages look okay printed out. Hit Cmd/Ctrl+P (or File>Print) on each page of your site and see if any elements need to be hidden, or made smaller, or darker, or unimportant images, banners, or navigation menus removed, etc.
+
+If so, create a new media query and include it **at the very bottom** of your stylesheet:
+
+    @media print {
+      
+      * {
+        color: #000; /* all text should be black for easiest printing, reading */
+      }
+      .no-print {
+        display: none !important; /* consider a helper class to add to elements you don't want to print */
+      }
+      
+    } /* end print media query */
+
+People do still print out things they find on the internet, so try to make sure it isn't a mess when they do.
 
 
+### Base CSS File
 
+In this repo there is a `base.min.css` file that combines and minifies the latest versions of <a href="https://necolas.github.io/normalize.css/" target="_blank">Normalize</a> and <a href="https://github.com/h5bp/html5-boilerplate/blob/master/dist/css/main.css" target="_blank">HTML5Boilerplate</a>'s styles. This is a good little stylesheet to include in your webpages before writing any of your own CSS, as it creates some base-level consistency across browsers and offers a few helper classes (like `.clearfix`) and some basic `@print` styles.
 
-
-
-<!--
-    /* BAD: */
-    
-    body {
-      background-image: url(whatever.jpg); /* any page that doesn't have this bg will have to explicitly override this style */
-    }
-    img {
-      width: 100%; /* every image will stretch to fill its entire container width */
-    }
-    ul {
-      list-style: none; /* this will hide the dots in your nav menu, but also in normal text lists */
-    }
-    a {
-      color: #3bf; /* this will color normal text links, but also links in your nav menu, footer, etc. */
-    }
-    .content p {
-      padding: 0 20px; /* any paragraph text anywhere in the content div will have side padding applied to it */
-    }
-    input,
-    textarea {
-      width: 100%; /* this will also get applied to checkboxes, radio buttons, file inputs, and submit/reset buttons */
-    }
-    
-    /* BETTER: */
-    
-    body.home-page {
-      background-image: url(whatever.jpg); /* limits the rule to a page-specific class instance */
-    }
-    img {
-      max-width: 100%; /* prevents the image from overflowing its parent, but won't cause it to stretch */
-    }
-    img.full {
-      width: 100%; /* images that should stretch to fill their parent just need a class added */
-    }
-    ul.unstyled {
-      list-style: none;
-    }
-    a {
-      color: inherit; /* overrides the browser's (and Bootstrap's) default blue */
-    }
-    .content p a:link {
-      color: #3bf; /* this only colors links that are in paragraphs in the main content area */
-    }
-    .content > p {
-      padding: 0 20px; /* only paragraph text that is a direct child of the content div will be given padding */
-    }
-    .content {
-      padding: 0 20px; /* another way you might do it */
-    }
-    input[type="text"],
-    input[type="password"],
-    input[type="email"],
-    textarea {
-      width: 100%; /* only include the specific input types you want */
-    }
-    input.full,
-    textarea.full {
-      width: 100%; /* another way you might do it */
-    }
--->
+Include this file in your project or, even better, copy and paste these styles into the top of your global (or aggregated) stylesheet to save the browser an extra HTTP request. Just make sure they come first so they don't override any of your own CSS.
