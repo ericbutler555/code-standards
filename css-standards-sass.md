@@ -1,6 +1,6 @@
 # Using SASS for CSS
 
-First, [install Sass](http://sass-lang.com/install) ([install Ruby](http://rubyinstaller.org/) first if you're on Windows) on your computer.
+This document already assumes you've [installed Sass](http://sass-lang.com/install) (and [installed Ruby](http://rubyinstaller.org/) first if you're on Windows) on your computer.
 
 Sass sounds scary and difficult, but **it's really not,** and here's why: you don't have to change anything about the way you write CSS. Valid CSS is valid SASS. But with Sass, once you get comfortable, you can also use extra stuff that makes it easier to write your CSS.
 
@@ -33,14 +33,14 @@ You'll have to do 3 quick things:
 
   `sass --watch main.scss:main.css --style expanded`
 
-  Replace `main.scss` with whatever the actual name of your `scss` file is, and replace `main.css` with whatever name you want your resulting `css` file to be named.
+  (Replace `main.scss` with whatever the actual name of your `scss` file is, and replace `main.css` with whatever name you want your resulting `css` file to be named.)
 
 Once you run this command, you should see some extra stuff appear in your `/css` directory: a new `main.css` file, a `main.css.map` file, and a `/sass-cache` directory. This is good! You can now minimize -- **do not close** -- your command prompt. You are ready to use Sass.
 
 
 ## Why Sass is worth it
 
-Now that you're writing Sass, you can use some of its very helpful features. Variables, nesting, parent selectors, mixins, functions, arithmetic, aggregation, instant minification... there's a lot that Sass handles very simply. Let's start with variables.
+Now that you're writing Sass, you can use some of its very helpful features. Variables, nesting, parent selectors, extends, mixins, functions, arithmetic, aggregation, instant minification... there's a lot that Sass handles very simply. Let's start with variables.
 
 
 ### Variables
@@ -129,7 +129,7 @@ HOLY SMOKES! Sass would automatically process this and output:
       padding: 0;
     }
 
-Need to target an element's parent while you're nesting, or easily apply pseudo-states? Simple, use the & character:
+Need to target an element's parent while you're nesting, or easily apply pseudo-stuff? Simple, use the `&` character:
 
     li {
       display: inline-block;
@@ -164,7 +164,7 @@ Sass will output this as:
       color: red;
     }
 
-That's kinda helpful, but maybe you're thinking, that didn't save me much coding. Okay, feast your eyeballs on mixins.
+Maybe you're thinking, Okay, that's kinda cool, but that didn't save me much coding. Okay, feast your eyeballs on extends and mixins.
 
 
 ### Extending
@@ -181,10 +181,12 @@ Ever have elements that are pretty much the same, but have one or two extra styl
       background: red;
     }
 
+Now, `.special` will have all the styles that `.common` has, plus the background style you added to it.
+
 
 ### Mixins
 
-Sass allows you to define a whole block of code and reference it by name. Sass calls this a mixin. Here's a very useful example:
+Sass allows you to define a whole block of code and reference it by name. Sass calls this a "mixin." Here's a very useful example:
 
     @mixin transform ($values) {
       -webkit-transform: $values;
@@ -233,7 +235,7 @@ Maybe now you're thinking Okay, that would be cool, but I don't want to have to 
 
   `bourbon install`
 
-3. You should now have a subdirectory named `/bourbon` added to your directory. Open up your `*.scss` file and type this on line 1:
+3. You should now have a sub-directory named `/bourbon` added to your directory. Open up your `*.scss` file and type this on line 1:
 
   `@import 'bourbon/bourbon';`
 
@@ -244,22 +246,22 @@ Learn what mixins are available from the Bourbon documentation: [http://bourbon.
 
 ### Aggregation
 
-The `@import` line for Bourbon shows how easily Sass can aggregate multiple files into a single Sass file (tbh CSS can do this too). Lots of times it makes sense to separate out your CSS into different files, so things are easier to find, grouped by similarity, etc. You do this in Sass with what they call partials, which is really just separate files that you name with an initial underscore. Example:
+The `@import` line for Bourbon shows how easily Sass can aggregate multiple files into a single Sass file (okay, CSS can do this too). Lots of times it makes sense to separate out your CSS into different files, so things are easier to find, grouped by similarity, etc. You do this in Sass with what they call "partials," which is really just separate files that you name with an initial underscore. Example:
 
-You want to separate all your variable declarations into their own file (good idea!) so they're easy to find. You'd create a new file and name it `_variables.scss`. Notice the initial underscore.
+Say you want to separate all your variable declarations into their own file (good idea!) so they're easy to find. You create a new file and name it `_variables.scss`. Notice the initial underscore.
 
-You'd then include that file back into your `main.scss` file by adding
+You then include that file back into your `main.scss` file by adding
 
 `@import 'variables';`
 
 at or near the top of your `main.scss` file. Done!
 
-You can (and depending on the project, maybe should) separate your CSS into as many Sass partials as makes sense, and then only use `main.scss` as a way to aggregate all the partials into a single file to process and convert into a single CSS file.
+You can (and depending on the project, maybe *should*) separate your CSS into as many Sass partials as makes sense, and then only use `main.scss` as a way to aggregate all the partials into a single file for Sass to process and convert into a single CSS file.
 
 
 ### Minification
 
-Okay, you know it's best practice to minify your CSS for production, but what if you have to do further development? Minifying and unminifying CSS for different environments is a nightmare. Sass solves this without even trying.
+You know it's best practice to minify your CSS for production, but what if you have to do further development? Minifying and unminifying CSS for different environments is a nightmare. Sass solves this without even trying.
 
 Go back to your command prompt/terminal. We're going to tweak our Sass "watch" command (if it's still running, hit `ctrl-c` first):
 
@@ -267,3 +269,13 @@ Go back to your command prompt/terminal. We're going to tweak our Sass "watch" c
 
 All we did was change the `--style` from `expanded` to `compressed`. But now, Sass will automatically minify all your styles in the `main.css` file so it's production-ready. Your `main.scss` file, which is where you're writing all your styles, stays un-minified. Best of both worlds.
 
+
+### So what goes up to production?
+
+Just the `*.css` file(s) that Sass creates. All of your Sass files (and sub-directories, and Bourbon) stay in your development environment. Sass doesn't need to be part of your actual website/production server at all. It is strictly a development tool. Awesome!
+
+One caution: Some browsers may return an error that it can't find a `*.map.css` file. This is because Sass adds a reference to it at the bottom of your `*.css` file in something like:
+
+    /*# sourceMappingURL=main.css.map */
+
+To remove the error, either delete this comment line from your CSS file, or push up your `*.css.map` file to production too. Your choice on which is better.
