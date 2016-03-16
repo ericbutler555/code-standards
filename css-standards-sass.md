@@ -280,6 +280,18 @@ Ever wanted to make a color a little darker, but didn't know what hex value to u
       color: desaturate(#3cf, 40%); // will desaturate #3cf by 40%
     }
 
+This will output:
+
+    div {
+      color: #3cf;
+    }
+    .other-div {
+      color: deepskyblue;
+    }
+    .third-div {
+      color: #5cb8d6;
+    }
+
 You can also use `adjust-hue()`, `lighten()`, `darken()`, `saturate()`, `desaturate()`, `grayscale()`, you can even `invert()` and find the `complement()` of a color. There's also `fade-in()` and `fade-out()` functions to make a color more or less opaque/transparent.
 
 
@@ -321,6 +333,6 @@ One caution: Some browsers may return an error that it can't find a `*.map.css` 
 
     /*# sourceMappingURL=main.css.map */
 
-To remove the error, just delete this comment line from your CSS file.
+To remove the error, just delete this comment line from your production CSS file(s). It's another development feature called [mapping](https://developer.chrome.com/devtools/docs/css-preprocessors#toc-how-css-source-maps-work).
 
 That's it, you're ready to start using Sass in your next project. If other devs will be working on your site too, make sure they know what to do (and not do). Good luck!
