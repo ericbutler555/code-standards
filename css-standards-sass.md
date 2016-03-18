@@ -4,7 +4,7 @@ Sass sounds scary and difficult, but **it's really not,** and here's why: **you 
 
 ## Installing
 
-First things first, Sass is a program, so let's install it. If you're on Windows, you need to install Ruby first. Fortunately, there's a [Ruby installer](http://rubyinstaller.org/) -- download and use it. When you do, tick the box to add Ruby to your PATH environment variable. If you're on a Mac, you already have Ruby, so you're fine.
+First things first, Sass is a program, so let's install it. If you're on Windows, you need to install Ruby first. Fortunately, there's a [Ruby installer](http://rubyinstaller.org/) -- download and use it. When you do, tick the box to **add Ruby to your PATH environment variable.** If you're on a Mac, you already have Ruby, so you're fine.
 
 You install Sass from the command-line, so open up your Windows `Command Prompt` or Mac `Terminal` program. Type:
 
@@ -14,7 +14,7 @@ or
 
     sudo gem install sass
 
-Once that finishes, you're done. Type `sass -v` if you want to make sure. If it didn't work, type `ruby -v`, and then `gem -v`. If you get an error on either, then you don't have Ruby and/or RubyGems installed right, or their paths are not in your PATH variable, so fix that. Google if it's still not working.
+Once that finishes, **you're done.** Type `sass -v` if you want to make sure. If you get an error, type `ruby -v`, and then `gem -v`. If you get an error on either of those, then you don't have Ruby and/or RubyGems installed right, or their paths are not in your PATH variable, so fix that. Google if it's still not working.
 
 
 ## Getting Started
@@ -268,7 +268,7 @@ Learn what mixins are available from Bourbon at [http://bourbon.io/docs/](http:/
 
 ### Color Functions
 
-Ever wanted to make a color a little darker, but didn't know what hex value to use? Or desaturate a color that's just a little too sharp? With Sass, it's crazy-easy.
+Ever wanted to make a color a little darker, but didn't know what hex value to use? Or soften a color that's just a little too sharp? With Sass, it's crazy-easy.
 
     div {
       color: #3cf;
@@ -292,7 +292,7 @@ This will output:
       color: #5cb8d6;
     }
 
-You can also use `adjust-hue()`, `lighten()`, `darken()`, `saturate()`, `desaturate()`, `grayscale()`, you can even `invert()` and find the `complement()` of a color. There's also `fade-in()` and `fade-out()` functions to make a color more or less opaque/transparent.
+You can `adjust-hue()`, `lighten()`, `darken()`, `saturate()`, `desaturate()`, `grayscale()`, you can even `invert()` and find the `complement()` of a color. There's also `fade-in()` and `fade-out()` functions to make a color more or less opaque/transparent.
 
 
 ### Aggregation
@@ -312,7 +312,7 @@ A common strategy is to move all your styles out of the `main.scss` file, into a
 
 ### Minification
 
-You know it's best practice to minify your CSS for production, but what if you have to work on it later? Minifying and unminifying CSS for different environments is a nightmare. Sass solves this without even trying.
+You know it's best practice to minify your CSS for production, but what if you need to work on it later? Minifying and unminifying CSS for different environments is a nightmare. Sass solves this without even trying.
 
 Go back to your command prompt/terminal. We're going to tweak our Sass "watch" command (if it's still running, hit `ctrl-c` first):
 
@@ -333,6 +333,6 @@ One caution: Some browsers may return an error that it can't find a `*.map.css` 
 
     /*# sourceMappingURL=main.css.map */
 
-To remove the error, just delete this comment line from your production CSS file(s). It's another development feature called [mapping](https://developer.chrome.com/devtools/docs/css-preprocessors#toc-how-css-source-maps-work).
+To remove the error, just **delete** this comment line from your production CSS file(s). It's for [mapping](https://developer.chrome.com/devtools/docs/css-preprocessors#toc-how-css-source-maps-work), which you don't need in production.
 
-That's it, you're ready to start using Sass in your next project. If other devs will be working on your site too, make sure they know what to do (and not do). Good luck!
+That's it, you're ready to start using Sass in your next project. If other devs will be working on your site too, make sure they know what to do (and not do -- no writing into the `*.css` files!). Good luck!
