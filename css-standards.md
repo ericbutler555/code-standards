@@ -31,24 +31,24 @@ This ordering is important for 2 reasons: 1. So that no style accidentally overr
 
 Naked rules (not wrapped in any media query, for phone viewports):
 
-    0px - 543px
+    0px - 575px
 
 "Small" (phablet landscape) viewports and up:
 
-    @media (min-width: 544px) { ... }
+    @media (min-width: 576px) { ... }
 
 "Medium" (tablet portrait) viewports and up:
 
     @media (min-width: 768px) { ... }
-    
+
 "Large" (tablet landscape) viewports and up:
 
     @media (min-width: 992px) { ... }
-    
+
 "Extra large" (laptop) viewports and up:
 
     @media (min-width: 1200px) { ... }
-    
+
 You may also want an extra query above that, since the desktop computers that many people use are nearly 2000 px wide:
 
     @media (min-width: 1600px) { ... }
@@ -63,11 +63,11 @@ Sometimes you have to fix a certain element's styles at a certain range of viewp
 Example:
 
     @media (min-width: 768px) and (max-width: 840px) {
-      
+
       .my-element {
         padding-left: 0;
       }
-      
+
     } /* end media query 768-840px */
 
 
@@ -108,7 +108,7 @@ Examples:
     .content p {
       padding: 0 20px; /* any paragraph text anywhere in the content div will have side padding applied to it */
     }
-    
+
     /* BETTER: */
     body.home-page {
       background-color: beige; /* limits the rule to a page-specific class instance */
@@ -151,7 +151,7 @@ Example:
       padding: 20px 0 40px;
       background-color: #ddd;
     }
-    
+
 **One Exception:**
 
 If the entire rule is just for a single selector and declaration, especially when setting a bunch of very similar rules together, write it as a single line:
@@ -187,20 +187,20 @@ Example:
      * GLOBAL NAVIGATION MENU
      *
      **/
-    
+
     #topNav {
       /* whatever */
     }
     .nav-icon {
       /* whatever */
     }
-    
+
     /**********
      *
      * PAGE: HOMEPAGE
      *
      **/
-     
+
      .hero-banner {
        /* whatever */
      }
@@ -211,7 +211,7 @@ Example:
 This one really needs to be done more: Add inline comments to indicate what certain declarations are trying to accomplish if it's not obvious. Especially for properties like `position`, `display`, `z-index`, negative margin, etc.
 
 Example:
-    
+
     .my-element {
       display: none; /* hide by default, show w/ jquery */
       position: relative; /* to contain child elements using position:absolute */
@@ -234,7 +234,7 @@ Example:
     .container {
       padding: 20px;
     }
-    
+
         /* DON'T INDENT LIKE THIS: */
         .container-inner {
           text-align: center;
@@ -277,17 +277,17 @@ If there is enough time, or the client requires it, don't forget to check if you
 If so, create a new media query and include it **at the very bottom** of your stylesheet:
 
     @media print {
-      
+
       * {
         color: #000; /* all text should be black for easiest printing, reading */
       }
       .no-print {
         display: none !important; /* consider a helper class to add to elements you don't want to print */
       }
-      
+
     } /* end print media query */
 
-People do still print out things they find on the internet, so try to make sure it isn't a mess when they do.
+People **do** still print out things they find on the internet, so try to make sure it isn't a mess when they do.
 
 
 ### Base CSS File
